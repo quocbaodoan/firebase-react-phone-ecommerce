@@ -1,0 +1,32 @@
+:root{
+  --mainDark: #000000;
+  --lightBlue: #48bcff;
+  --mainWhite: #f3f3f3;
+  --lightDark: #232528;
+  --mainYellow: #ffa400;
+}
+
+body{
+  font-family: 'Roboto', sans-serif !important;
+  background: rgb(241, 240, 241) !important;
+  color: var(--lightDark) !important;
+  height: 100% !important;
+}
+
+.text-title{
+  font-family: 'Permanent Marker', cursive;
+  letter-spacing: 0.3rem;
+  text-transform: uppercase;
+}
+
+.text-blue{
+  color: var(--lightBlue);
+}
+
+.text-bright{
+  color: var(--lightBlue);
+}
+
+/*-------Navbar.js-------*/
+
+/*-------CartItem.js-------*/
