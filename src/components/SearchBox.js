@@ -7,17 +7,14 @@ import { withRouter } from 'react-router-dom';
 
 function SearchBox(props) {
     const [searchKeyword, setSearchKeyword] = useState('');
-    const [sortOrder, setSortOrder] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const dispatch = useDispatch();
     const submitHandler = (e) => {
         e.preventDefault();
         props.history.push("/");
-        setIsSubmitting(true);
     };
     useEffect(() => {
         if (props.location.pathname == "/"){
-            dispatch(listProducts(searchKeyword, sortOrder));
+            dispatch(listProducts(searchKeyword));
         }
     }, [props.location.pathname, searchKeyword]);
     return (

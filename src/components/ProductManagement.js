@@ -4,6 +4,7 @@ import axios from 'axios';
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { saveProduct, listProducts, deleteProduct } from '../store/actions/productActions';
+import { app } from "../firebase";
 
 export default function ProductManagement(props) {
     const [id, setId] = useState('');
@@ -22,8 +23,8 @@ export default function ProductManagement(props) {
     const [memory, setMemory] = useState('');
     const [sim, setSim] = useState('');
     const [battery, setBattery] = useState('');
-    const [uploading, setUploading] = useState(false);
     const [save, setSave] = useState(false);
+    const [productDetailsDelete, setProductDetailsDelete] = useState([]);
     const dispatch = useDispatch();
 
     const productList = useSelector((state) => state.productList);
@@ -36,7 +37,7 @@ export default function ProductManagement(props) {
     const { success: successDelete } = productDelete;
 
     useEffect(() => {
-        if (successSave) {
+        if (successSave || successDelete) {
             setSave(true);
         }
         dispatch(listProducts());
@@ -46,8 +47,9 @@ export default function ProductManagement(props) {
     }, [successSave, successDelete]);
 
     const openModal = (product) => {
-        setId(product._id);
+        setId(product.id);
         setName(product.name);
+        console.log(product);
         setPrice(product.price);
         setDescription(product.description);
         setImage(product.image);
@@ -62,7 +64,6 @@ export default function ProductManagement(props) {
         setMemory(product.memory);
         setSim(product.sim);
         setBattery(product.battery);
-
         setSave(false);
     };
     const closeModal = () => {
@@ -86,9 +87,28 @@ export default function ProductManagement(props) {
     };
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(
-            saveProduct({
-                _id: id,
+        if (id !== "") {            //Update
+            dispatch(saveProduct({
+                name,
+                price,
+                image,
+                brand,
+                countInStock,
+                description,
+                display,
+                os,
+                camera,
+                front,
+                cpu,
+                ram,
+                memory,
+                sim,
+                battery
+            }, id)
+            );
+        }
+        else {                      //Add
+            dispatch(saveProduct({
                 name,
                 price,
                 image,
@@ -105,36 +125,115 @@ export default function ProductManagement(props) {
                 sim,
                 battery
             })
-        );
+            );
+        }
+    };
+
+    const openModalDelete = (product) => {
+        setProductDetailsDelete(product);
+        setSave(false);
     };
     const deleteHandler = (product) => {
-        dispatch(deleteProduct(product._id));
+        dispatch(deleteProduct(product.id));
     };
-    const uploadImageHandler = (e) => {
+    const uploadImageHandler = async (e) => {
+        // const file = e.target.files[0];
+        // const bodyFormData = new FormData();
+        // bodyFormData.append('image', file);
+        // setUploading(true);
+        // axios.post('/api/uploads', bodyFormData, {
+        //     headers: {
+        //         'content-type': 'multipart/form-data',
+        //     },
+        // })
+        //     .then((response) => {
+        //         setImage(response.data);
+        //         setUploading(false);
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //         setUploading(false);
+        //     });
         const file = e.target.files[0];
-        const bodyFormData = new FormData();
-        bodyFormData.append('image', file);
-        setUploading(true);
-        axios.post('/api/uploads', bodyFormData, {
-            headers: {
-                'content-type': 'multipart/form-data',
-            },
-        })
-            .then((response) => {
-                setImage(response.data);
-                setUploading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setUploading(false);
-            });
+        const storageRef = app.storage().ref();
+        const fileRef = storageRef.child(file.name);
+        await fileRef.put(file);
+        setImage(await fileRef.getDownloadURL());
     };
+
+    console.log(productDetailsDelete);
     return (
         <div className="container">
             <div>
-                <h1 className="text-center mt-4 mb-1" style={{ color: "#056676", fontWeight: "500", letterSpacing: "7px" }}>SẢN PHẨM</h1>
+                <h1 className="text-center pt-4 mb-1" style={{ color: "#056676", fontWeight: "500", letterSpacing: "7px" }}>SẢN PHẨM</h1>
             </div>
             <a href="#modal" style={{ textDecoration: "none", color: "white", backgroundColor: "#056676", borderColor: "#056676" }} className="btn btn-primary" onClick={() => closeModal({})} >Thêm sản phẩm</a>
+
+            <div className="row mt-2">
+                <div className="col-12">
+                    <ProductsColumnsWrapper>
+                        <div className="container text-center d-none d-lg-block">
+                            <div className="row">
+                                <div className="col-10 mx-auto col-lg-2">
+                                    <p className="text-uppercase py-auto">Sản phẩm</p>
+                                </div>
+                                <div className="col-10 mx-auto col-lg-2">
+                                    <p className="text-uppercase">Tên sản phẩm</p>
+                                </div>
+                                <div className="col-10 mx-auto col-lg-2">
+                                    <p className="text-uppercase">Giá</p>
+                                </div>
+                                <div className="col-10 mx-auto col-lg-2">
+                                    <p className="text-uppercase">Số lượng</p>
+                                </div>
+                                <div className="col-10 mx-auto col-lg-2">
+                                    <p className="text-uppercase">Tổng</p>
+                                </div>
+                                <div className="col-10 mx-auto col-lg-2">
+                                    <p className="text-uppercase">Chức năng</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ProductsColumnsWrapper>
+                    {products.map((product) => (
+                        <CartWrapper className="px-lg-0" key={product._id}>
+                            <div className="row text-center">
+                                <div className="col-10 mx-auto col-lg-2">
+                                    <Link to={"/product/" + product.id}>
+                                        <img src={product.image} style={{ width: "5rem" }} className="img-fluid" alt="product" />
+                                    </Link>
+                                </div>
+                                <div className="col-10 mx-auto col-lg-2 my-auto">
+                                    <span className="d-lg-none">Sản phẩm: </span>
+                                    <Link to={"/product/" + product.id} style={{ color: "#056676", textDecoration: "none" }}>
+                                        {product.name}
+                                    </Link>
+                                </div>
+                                <div className="col-10 mx-auto col-lg-2 my-auto">
+                                    <span className="d-lg-none">Giá: </span>
+                                    {convertToString(product.price)}đ
+                                </div>
+                                <div className="col-10 mx-auto col-lg-2 my-lg-auto">
+                                    {product.countInStock}
+                                </div>
+                                <div className="col-10 mx-auto col-lg-2 my-auto">
+                                    {convertToString(product.price * product.countInStock)}đ
+                                </div>
+                                <div className="col-10 mx-auto col-lg-2 my-auto">
+                                    <div className="d-flex justify-content-center">
+                                        <div className="cart-update-icon pr-1" onClick={() => openModal(product)}>
+                                            <a href="#modal" style={{ color: "#1e4b70" }}><i className="fas fa-wrench"></i></a>
+                                        </div>
+                                        <div className="cart-remove-icon" onClick={() => openModalDelete(product)}>
+                                            <a href="#modal-delete" style={{ color: "#d14545" }}><i className="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </CartWrapper>
+                    ))}
+                </div>
+            </div>
             <ModalWrapper id="modal">
                 <div>
                     <form onSubmit={submitHandler}>
@@ -165,7 +264,6 @@ export default function ProductManagement(props) {
                                                 <input type="text" name="image" value={image} id="image" onChange={(e) => setImage(e.target.value)}></input>
                                                 <label htmlFor="upload-image" className="btn btn-primary ml-2" style={{ height: "40px", backgroundColor: "#056676", borderColor: "#056676" }}>Chọn</label>
                                                 <input type="file" onChange={uploadImageHandler} className="text-muted upload-image" id="upload-image"></input>
-                                                {uploading && <div>Uploading...</div>}
                                             </div>
                                         </div>
                                     </div>
@@ -246,18 +344,18 @@ export default function ProductManagement(props) {
                             <div className="row mt-4">
                                 <div className="col-6 mx-auto d-flex flex-row">
                                     <div>
-                                        {!save ? 
-                                        (
-                                            <button type="submit" className="btn btn-primary" style={{ width: "100px", backgroundColor: "#056676", borderColor: "#056676" }}>
-                                                {id ? 'Cập nhật' : 'Thêm'}
-                                            </button>
-                                        ) 
-                                        :
-                                        (
-                                            <button type="submit" className="btn btn-primary" style={{ width: "100px", backgroundColor: "#056676", borderColor: "#056676" }} disabled>
-                                                {id ? 'Cập nhật' : 'Thêm'}
-                                            </button>
-                                        )
+                                        {!save ?
+                                            (
+                                                <button type="submit" className="btn btn-primary" style={{ width: "100px", backgroundColor: "#056676", borderColor: "#056676" }}>
+                                                    {id ? 'Cập nhật' : 'Thêm'}
+                                                </button>
+                                            )
+                                            :
+                                            (
+                                                <button type="submit" className="btn btn-primary" style={{ width: "100px", backgroundColor: "#056676", borderColor: "#056676" }} disabled>
+                                                    {id ? 'Cập nhật' : 'Thêm'}
+                                                </button>
+                                            )
                                         }
                                     </div>
                                     <div className="ml-auto">
@@ -269,71 +367,35 @@ export default function ProductManagement(props) {
                     </form>
                 </div>
             </ModalWrapper>
-            <div className="row mt-2">
-                <div className="col-12">
-                    <ProductsColumnsWrapper>
-                        <div className="container text-center d-none d-lg-block">
-                            <div className="row">
-                                <div className="col-10 mx-auto col-lg-2">
-                                    <p className="text-uppercase py-auto">Sản phẩm</p>
-                                </div>
-                                <div className="col-10 mx-auto col-lg-2">
-                                    <p className="text-uppercase">Tên sản phẩm</p>
-                                </div>
-                                <div className="col-10 mx-auto col-lg-2">
-                                    <p className="text-uppercase">Giá</p>
-                                </div>
-                                <div className="col-10 mx-auto col-lg-2">
-                                    <p className="text-uppercase">Số lượng</p>
-                                </div>
-                                <div className="col-10 mx-auto col-lg-2">
-                                    <p className="text-uppercase">Tổng</p>
-                                </div>
-                                <div className="col-10 mx-auto col-lg-2">
-                                    <p className="text-uppercase">Chức năng</p>
-                                </div>
+            <ModalDeleteWrapper id="modal-delete">
+                <div>
+                    <div className="row mt-4">
+                        <div className="col-12 mx-auto text-center">
+                            <h4 style={{ color: "#056676" }}>Bạn có chắc chắn<br />muốn xóa sản phẩm này?</h4>
+                        </div>
+                    </div>
+                    <div className="row mt-5">
+                        <div className="col-10 mx-auto d-flex flex-row">
+                            {!save ?
+                                (
+                                    <button className="btn btn-primary" style={{ width: "100px", backgroundColor: "#056676", borderColor: "#056676" }} onClick={() => deleteHandler(productDetailsDelete)}>
+                                        Xóa
+                                    </button>
+                                )
+                                :
+                                (
+                                    <button className="btn btn-primary" style={{ width: "100px", backgroundColor: "#056676", borderColor: "#056676" }} onClick={() => deleteHandler(productDetailsDelete)} disabled>
+                                        Xóa
+                                    </button>
+                                )
+                            }
+                            <div className="ml-auto">
+                                <a href="#close" style={{ color: "#056676", width: "100px" }} className="btn btn-light">Trở lại</a>
                             </div>
                         </div>
-                    </ProductsColumnsWrapper>
-                    {products.map((product) => (
-                        <CartWrapper className="px-lg-0" key={product._id}>
-                            <div className="row text-center">
-                                <div className="col-10 mx-auto col-lg-2">
-                                    <Link to={"/product/" + product._id}>
-                                        <img src={product.image} style={{ width: "5rem" }} className="img-fluid" alt="product" />
-                                    </Link>
-                                </div>
-                                <div className="col-10 mx-auto col-lg-2 my-auto">
-                                    <span className="d-lg-none">Sản phẩm: </span>
-                                    <Link to={"/product/" + product._id} style={{ color: "#056676", textDecoration: "none" }}>
-                                        {product.name}
-                                    </Link>
-                                </div>
-                                <div className="col-10 mx-auto col-lg-2 my-auto">
-                                    <span className="d-lg-none">Giá: </span>
-                                    {convertToString(product.price)}đ
-                                </div>
-                                <div className="col-10 mx-auto col-lg-2 my-lg-auto">
-                                    {product.countInStock}
-                                </div>
-                                <div className="col-10 mx-auto col-lg-2 my-auto">
-                                    {convertToString(product.price * product.countInStock)}đ
-                                </div>
-                                <div className="col-10 mx-auto col-lg-2 my-auto">
-                                    <div className="d-flex justify-content-center">
-                                        <div className="cart-update-icon pr-1" onClick={() => openModal(product)}>
-                                            <a href="#modal" style={{ color: "#1e4b70" }}><i class="fas fa-wrench"></i></a>
-                                        </div>
-                                        <div className="cart-remove-icon" onClick={() => deleteHandler(product)}>
-                                            <i className="fas fa-trash"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </CartWrapper>
-                    ))}
+                    </div>
                 </div>
-            </div>
+            </ModalDeleteWrapper>
         </div>
     );
 }
@@ -348,6 +410,45 @@ function convertToString(value) {
     resFinal = resString + resFinal;
     return resFinal;
 }
+
+
+const ProductsColumnsWrapper = styled.div`
+    .container{
+        background: white;
+        height: 40px;
+        border-radius: 20px;
+        color: #666666;
+    }
+    p{
+        margin-top: 8px !important;
+    }
+`
+
+const CartWrapper = styled.div`
+    input{
+        font-size: 0px !important;
+    }
+
+    .btn-number-cart{
+        padding: 0px !important;
+    }
+
+    .cart-remove-icon{
+        cursor: pointer;
+        font-size: 1.4rem;
+    }
+
+    .cart-update-icon{
+        cursor: pointer;
+        font-size: 1.4rem;
+    }
+
+    background: white;
+    margin-top: 10px;
+    padding: 10px 0px;
+    border-radius: 20px;
+    color: #056676 !important;
+`
 
 const ModalWrapper = styled.div`
     input[type="text"], input[type="password"], input[type="date"], select{
@@ -386,42 +487,6 @@ const ModalWrapper = styled.div`
     }
 `
 
-const ProductsColumnsWrapper = styled.div`
-    .container{
-        background: white;
-        height: 40px;
-        border-radius: 20px;
-        color: #666666;
-    }
-    p{
-        margin-top: 8px !important;
-    }
-`
+const ModalDeleteWrapper = styled.div`
 
-const CartWrapper = styled.div`
-    input{
-        font-size: 0px !important;
-    }
-
-    .btn-number-cart{
-        padding: 0px !important;
-    }
-
-    .cart-remove-icon{
-        cursor: pointer;
-        font-size: 1.4rem;
-        color: #d14545;
-    }
-
-    .cart-update-icon{
-        cursor: pointer;
-        font-size: 1.4rem;
-        color: #4592d1;
-    }
-
-    background: white;
-    margin-top: 10px;
-    padding: 10px 0px;
-    border-radius: 20px;
-    color: #056676 !important;
 `

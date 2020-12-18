@@ -34,7 +34,7 @@ export default function Details(props) {
                     <Link to="/" className="text-decoration-none" style={{color: "#056676"}}><i className="fas fa-chevron-circle-left mr-1"></i>Về trang chủ</Link>
                 </div>
                 <div className="row">
-                    <div className="col-10 mx-auto text-center text-slanted mb-3">
+                    <div className="col-10 mx-auto text-center text-slanted mt-3">
                         <h1 style={{color: "#056676", fontWeight: "500"}}>{product.name}</h1>
                     </div>
                 </div>
@@ -42,13 +42,13 @@ export default function Details(props) {
                 {/*product info*/}
                 <div className="row">
                     <div className="col-10 mx-auto col-md-4 my-3 text-capitalize pr-0">
-                        <img src={product.image} className="img-fluid pl-4 py-4" alt="product"/>
+                        <img src={product.image} className="img-fluid py-4" alt="product"/>
                     </div>
                     {/*product text*/}
-                    <div className="col-10 mx-auto col-md-4 my-3 pl-0">
+                    <div className="col-10 mx-auto col-md-4 my-3 pl-2 pr-2">
                         <div className="cart">
                             <div className="row mt-3 mb-2">
-                                <div className="col-6 mx-auto">
+                                <div className="col-6 mx-auto pr-0">
                                     <h5 style={{color: "#056676"}}>
                                         Thương hiệu: <span>{product.brand}</span>
                                     </h5>
@@ -100,7 +100,7 @@ export default function Details(props) {
                         </p>
                         
                     </div>
-                    <div className="col-10 mx-auto col-md-4 my-3 text-capitalize pr-4">    
+                    <div className="col-10 mx-auto col-md-4 my-3 text-capitalize pr-4 pl-2">    
                         <h5 className="mt-3" style={{color: "#056676"}}>Thông số kỹ thuật</h5>
                         <ul className="parameter">
                             <li>
@@ -218,7 +218,7 @@ const ProductWrapper = styled.div`
     }
 
     h5{
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 400;
     }
 `

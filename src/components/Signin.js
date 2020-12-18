@@ -14,7 +14,6 @@ export default function Signin(props) {
     const userSignin = useSelector(state => state.userSignin);
     const { loading, userInfo, error } = userSignin;
     const dispatch = useDispatch();
-    const redirect = props.location.search ? props.location.search.split("=")[1] : '/';
     
     useEffect(() => {
         if (userInfo) {
@@ -37,7 +36,7 @@ export default function Signin(props) {
     }, [errors]);
 
     return (
-        <div className="container mt-5">
+        <div className="container pt-5">
             <div className="row">
                 <div className="col-12 mx-auto">
                     <SignInWrapper className="row">
@@ -79,10 +78,13 @@ export default function Signin(props) {
                                             
                                         </div>
                                     </div>
-                                    <div className="row text-center mb-4 mt-1">
-                                        <div className="col col-10 mx-auto text-muted">
-                                            Bạn chưa có tài khoản? <Link to={redirect === "/" ? "register" : "register?redirect=" + redirect} style={{textDecoration: "none", color: "#056676"}}>
+                                    <div className="row mb-4 mt-1">
+                                        <div className="col col-10 mx-auto text-muted d-flex flex-row">
+                                            Bạn chưa có tài khoản?<Link to="register" style={{textDecoration: "none", color: "#056676"}} className="ml-1">
                                                 Đăng ký ngay
+                                            </Link>
+                                            <Link to="reset-password" style={{textDecoration: "none", color: "#056676"}} className="ml-auto">
+                                                Quên mật khẩu?
                                             </Link>
                                         </div>
                                     </div>
@@ -181,7 +183,7 @@ const SignInWrapper = styled.div`
     .loading{
         position: absolute;
         top: 20%;
-        left: 90%;
+        left: 87%;
         transform: translate(0%, 0%);
     }
 `

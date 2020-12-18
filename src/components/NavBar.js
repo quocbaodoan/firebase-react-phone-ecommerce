@@ -45,7 +45,7 @@ function NavBar(props) {
                     </Link>
                     <SearchBox />
                     <div className="ml-auto d-flex pt-1">
-                        {userInfo && userInfo.isAdmin ? null :
+                        {userInfo && userInfo.email === "quocbaodoan1999@gmail.com" ? null :
                             <Link to="/cart" className="ml-1">
                                 <button className="btn btn-primary mr-3">
                                     <div className="row justify-content-center">
@@ -57,7 +57,7 @@ function NavBar(props) {
                                 </button>
                             </Link>
                         }
-                        {userInfo && userInfo.isAdmin && (
+                        {userInfo && userInfo.email === "quocbaodoan1999@gmail.com" && (
                             // <Link to="/products" className="ml-1"><button className="btn btn-primary">Sản phẩm</button></Link>
                             <Link to="/products">
                                 <button className="btn btn-primary mr-3">
@@ -123,6 +123,10 @@ const NavWrapper = styled.nav`
     z-index: 1040;
     background: white;
     box-shadow: rgba(0, 0, 0, 0.03) 0px 0.5rem 1rem 0px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
     .nav-link{
         color: var(--mainWhite) !important;
         font-size: 1.6rem;

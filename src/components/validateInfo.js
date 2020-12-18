@@ -1,4 +1,3 @@
-import React from 'react'
 
 const validateInfo = (email, password, rePassword) => {
     let errors = {};
@@ -28,7 +27,7 @@ const validateInfo = (email, password, rePassword) => {
             errors.rePassword = "Mật khẩu không trùng khớp!";
         }
     }
-    else {
+    else if (password !== undefined) {
         //Email
         if (!email) {
             errors.email = "Bạn chưa nhập email!";
@@ -40,6 +39,15 @@ const validateInfo = (email, password, rePassword) => {
         //Password
         if (!password) {
             errors.password = "Bạn chưa nhập mật khẩu!";
+        }
+    }
+    else {
+        //Email
+        if (!email) {
+            errors.email = "Bạn chưa nhập email!";
+        }
+        else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+            errors.email = "Email của bạn không chính xác!";
         }
     }
     return errors;

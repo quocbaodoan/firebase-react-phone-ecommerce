@@ -29,13 +29,13 @@ export default function Cart(props) {
             cartItems.length === 0 ?
             (
                 <div>
-                    <h1 className="text-center my-4" style={{color: "#056676", fontWeight: "500", letterSpacing: "6px"}}>GIỎ HÀNG HIỆN CÒN TRỐNG</h1>
+                    <h1 className="text-center py-4" style={{color: "#056676", fontWeight: "500", letterSpacing: "6px"}}>GIỎ HÀNG HIỆN CÒN TRỐNG</h1>
                 </div>
             )
             :
             (
                 <div>       
-                    <h1 className="text-center my-4" style={{color: "#056676", fontWeight: "500", letterSpacing: "7px"}}>GIỎ HÀNG</h1>
+                    <h1 className="text-center pt-4 pb-2" style={{color: "#056676", fontWeight: "500", letterSpacing: "7px"}}>GIỎ HÀNG</h1>
                     <div className="row">
                         <div className="col-xl-9">
                             <CartColumns/>

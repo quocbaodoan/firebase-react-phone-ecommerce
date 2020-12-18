@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { listProducts } from '../store/actions/productActions';
 import styled from "styled-components";
@@ -29,6 +29,7 @@ export default function Home(props) {
         dispatch(listProducts(value, sortOrder));
     };
 
+    console.log(products);
     return (
         <HomeWrapper style={{ minHeight: "100vh" }}>
             <div className="container">
@@ -70,31 +71,24 @@ export default function Home(props) {
                     </div>
                 </div>
                 <div className="row">
-                    {(searchKeyword !== undefined) ?
-                        products.filter(product => product.name.toLowerCase().indexOf(searchKeyword) > -1).slice(indexOfFirstPost, indexOfLastPost).map(product => {
-                            return (
-                                <Product key={product.id} product={product} />
-                            )
-                        })
-                        :
-                        products.slice(indexOfFirstPost, indexOfLastPost).map(product => {
-                            return (
-                                <Product key={product.id} product={product} />
-                            )
-                        })}
+                    {products.slice(indexOfFirstPost, indexOfLastPost).map(product => {
+                        return (
+                            <Product key={product.id} product={product} />
+                        )
+                    })}
                     {((searchKeyword !== undefined) ?
                         products.filter(product => product.name.toLowerCase().indexOf(searchKeyword) > -1).length
                         : products.length) > 8 ?
-                            <Pagination
-                                postsPerPage={8}
-                                totalPosts={(searchKeyword !== undefined) ?
-                                    products.filter(product => product.name.toLowerCase().indexOf(searchKeyword) > -1).length
-                                    :
-                                    products.length
-                                }
-                                paginate={paginate}
-                            />
-                            : null
+                        <Pagination
+                            postsPerPage={8}
+                            totalPosts={(searchKeyword !== undefined) ?
+                                products.filter(product => product.name.toLowerCase().indexOf(searchKeyword) > -1).length
+                                :
+                                products.length
+                            }
+                            paginate={paginate}
+                        />
+                        : null
                     }
                 </div>
             </div>
