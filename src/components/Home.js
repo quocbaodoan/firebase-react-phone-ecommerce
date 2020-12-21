@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { listProducts } from '../store/actions/productActions';
 import styled from "styled-components";
@@ -8,8 +8,7 @@ import Pagination from "./Pagination";
 import Product from "./Product";
 
 export default function Home(props) {
-    const [searchKeyword, setSearchKeyword] = useState('');
-    const [sortOrder, setSortOrder] = useState('');
+    const [searchKeyword, setSearchKeyword] = useState("");
     const productList = useSelector((state) => state.productList);
     const { products } = productList;
     const dispatch = useDispatch();
@@ -21,14 +20,12 @@ export default function Home(props) {
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
     const sortHandler = (e) => {
-        setSortOrder(e.target.value);
-        dispatch(listProducts(searchKeyword, sortOrder));
+        dispatch(listProducts(searchKeyword, e.target.value));
     };
 
     const setSearchValue = (value) => {
-        dispatch(listProducts(value, sortOrder));
+        dispatch(listProducts(value, ""));
     };
-
     console.log(products);
     return (
         <HomeWrapper style={{ minHeight: "100vh" }}>
@@ -50,10 +47,10 @@ export default function Home(props) {
                     </div>
                     <div className="col-6 text-right text-muted">
                         <span>Sắp xếp theo</span>
-                        <select name="sortOrder" onChange={sortHandler} className="mdb-select md-form ml-1" style={{ borderRadius: "5px", border: "none", padding: "5px", backgroundColor: "white", color: "#6c757d" }}>
+                        <select name="SortOrder" onChange={sortHandler} className="mdb-select md-form ml-1" style={{ borderRadius: "5px", border: "none", padding: "5px", backgroundColor: "white", color: "#6c757d" }}>
                             <option value="">Mới nhất</option>
-                            <option value="lowest">Từ cao đến thấp</option>
-                            <option value="highest">Từ thấp đên cao</option>
+                            <option value="highest">Từ cao đến thấp</option>
+                            <option value="lowest">Từ thấp đên cao</option>
                         </select>
                     </div>
                 </div>
@@ -112,7 +109,9 @@ const BrandLogoWrapper = styled.div`
 `
 
 const HomeWrapper = styled.div`
-    .mdb-select{
+    select{
+        cursor: pointer;
+
         &:focus{
             outline: none;
         }

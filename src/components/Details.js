@@ -29,7 +29,7 @@ export default function Details(props) {
             <div>{error} </div>
         ) : 
         (
-            <ProductWrapper className="container">        
+            <ProductWrapper className="container" style={{minHeight: "92vh"}}>        
                 <div className="pl-2 pt-3">
                     <Link to="/" className="text-decoration-none" style={{color: "#056676"}}><i className="fas fa-chevron-circle-left mr-1"></i>Về trang chủ</Link>
                 </div>

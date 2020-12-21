@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { saveProduct, listProducts, deleteProduct } from '../store/actions/productActions';
@@ -161,14 +160,12 @@ export default function ProductManagement(props) {
         setImage(await fileRef.getDownloadURL());
     };
 
-    console.log(productDetailsDelete);
     return (
         <div className="container">
             <div>
                 <h1 className="text-center pt-4 mb-1" style={{ color: "#056676", fontWeight: "500", letterSpacing: "7px" }}>SẢN PHẨM</h1>
             </div>
             <a href="#modal" style={{ textDecoration: "none", color: "white", backgroundColor: "#056676", borderColor: "#056676" }} className="btn btn-primary" onClick={() => closeModal({})} >Thêm sản phẩm</a>
-
             <div className="row mt-2">
                 <div className="col-12">
                     <ProductsColumnsWrapper>
@@ -214,9 +211,11 @@ export default function ProductManagement(props) {
                                     {convertToString(product.price)}đ
                                 </div>
                                 <div className="col-10 mx-auto col-lg-2 my-lg-auto">
+                                    <span className="d-lg-none">Số lượng: </span>
                                     {product.countInStock}
                                 </div>
                                 <div className="col-10 mx-auto col-lg-2 my-auto">
+                                    <span className="d-lg-none">Tổng: </span>
                                     {convertToString(product.price * product.countInStock)}đ
                                 </div>
                                 <div className="col-10 mx-auto col-lg-2 my-auto">

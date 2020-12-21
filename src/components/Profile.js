@@ -38,12 +38,9 @@ export default function Profile(props) {
         }
     }, [userInfo]);
 
-
-    console.log(userInfo);
-    console.log(email);
     return (
-        <div className="container pt-5">
-            <div className="row">
+        <div className="container pt-5" style={{minHeight: "92vh"}}>
+            <div className="row pt-4">
                 <div className="col-12 mx-auto">
                     <UserInfoWrapper className="row">
                         <div className="col-6 mx-auto form-content-left">

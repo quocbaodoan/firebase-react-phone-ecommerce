@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { useDispatch } from 'react-redux';
 import { listProducts } from '../store/actions/productActions';
-import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 
 function SearchBox(props) {
@@ -13,7 +12,7 @@ function SearchBox(props) {
         props.history.push("/");
     };
     useEffect(() => {
-        if (props.location.pathname == "/"){
+        if (props.location.pathname === "/"){
             dispatch(listProducts(searchKeyword));
         }
     }, [props.location.pathname, searchKeyword]);

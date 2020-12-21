@@ -39,8 +39,8 @@ export default function Register(props) {
     }, [errors]);
 
     return (
-        <div className="container pt-5">
-            <div className="row">
+        <div className="container pt-5" style={{minHeight: "92vh"}}>
+            <div className="row pt-4">
                 <div className="col-12 mx-auto">
                     <RegisterWrapper className="row">
                         <div className="col-6 mx-auto form-content-left">
@@ -106,7 +106,6 @@ export default function Register(props) {
 }
 
 const RegisterWrapper = styled.div`
-    z-index: 99999;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     border-radius: 10px;

@@ -20,7 +20,7 @@ export default function Product(props) {
                             <Link to={'/product/' + props.product.id}>{props.product.name}</Link>
                         </h6>
                         <h6 className="mt-0 mb-0 price">
-                            <span className="justify-content-end">{convertToString(props.product.price)}đ</span>
+                            <span className="justify-content-end" style={{color: "#666"}}>{convertToString(props.product.price)}đ</span>
                         </h6>
                     </div>
                 </div>
@@ -53,12 +53,12 @@ const ProductWrapper = styled.div`
         border-bottom-right-radius: 10px;
         border-top: transparent;
         transition: all 0.3s linear;
-        color: #056676 !important;
+        color: #888 !important;
         padding-bottom: 16px;
     }
 
     .card-footer h6 a{
-        color:rgb(5, 102, 118)  !important;
+        color: #555  !important;
         text-decoration: none;
         transition: all 0.3s linear;
         font-weight: 400;

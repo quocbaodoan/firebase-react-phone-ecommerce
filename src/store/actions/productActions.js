@@ -26,7 +26,7 @@ const listProducts = (searchKeyword = '', sortOrder = '') => async (dispatch) =>
                 console.log("Res: " + res.data);
                 let products = [];
                 for (const key in data) {
-                    if (data[key] !== []) {
+                    if (data[key]) {
                         products.push({
                             id: key,
                             ...data[key]

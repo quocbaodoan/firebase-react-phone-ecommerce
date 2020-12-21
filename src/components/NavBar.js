@@ -6,15 +6,13 @@ import { logout } from '../store/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SearchBox from './SearchBox';
-import { Menu, Dropdown, Button, Space } from 'antd';
+import { Menu, Dropdown, Button } from 'antd';
 import { withRouter } from 'react-router-dom';
 
 function NavBar(props) {
     const userSignin = useSelector(state => state.userSignin);
     const { userInfo } = userSignin;
     const [sortOrder, setSortOrder] = useState('');
-    const productList = useSelector((state) => state.productList);
-    const { products, loading, error } = productList;
     const dispatch = useDispatch();
     const handleLogout = () => {
         dispatch(logout());
@@ -36,7 +34,7 @@ function NavBar(props) {
     return (
         <div>
             <NavWrapper>
-                <div className="navbar navbar-expand-sm navbar-dark px-sm-5 container d-flex">
+                <div className="navbar navbar-expand-sm navbar-dark px-sm-1 container d-flex">
                     {/* https://www.iconfinder.com/icons/1243689/call_phone_icon
                     Creative Commons (Attribution 3.0 Unported);
                     https://www.iconfinder.com/Makoto_msk */}
@@ -51,7 +49,7 @@ function NavBar(props) {
                                     <div className="row justify-content-center">
                                         <i className="fas fa-shopping-cart"></i>         
                                     </div>
-                                    <div className="row" style={{fontSize: "0.8rem", fontWeight: "300", marginTop: "1px"}}>
+                                    <div className="row col-l" style={{fontSize: "0.8rem", fontWeight: "300", marginTop: "1px"}}>
                                         Giỏ hàng
                                     </div>
                                 </button>
@@ -182,5 +180,9 @@ const NavWrapper = styled.nav`
 
     .fas{
         font-size: 150%;
+    }
+
+    @media (max-width:767px){
+
     }
 `

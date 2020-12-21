@@ -14,12 +14,13 @@ import NavBar from "./components/NavBar";
 import 'antd/dist/antd.css';
 import PrivateRoute from "./route/PrivateRoute";
 import AdminRoute from "./route/AdminRoute";
+import Footer from './components/Footer';
 
 function App(props) {
     return (
         <BrowserRouter>
             <NavBar />
-            <div style={{marginTop: "80px"}}>
+            <div style={{paddingTop: "80px"}}>
                 <div>
                     <PrivateRoute path="/profile" component={Profile} />
                     <AdminRoute path="/products" component={ProductManagement} />
@@ -32,6 +33,7 @@ function App(props) {
                     <Route path="/" exact={true} component={Home} />
                 </div>
             </div>
+            <Footer/>
         </BrowserRouter>
     );
 }

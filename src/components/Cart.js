@@ -24,7 +24,7 @@ export default function Cart(props) {
     }, []);
 
     return(
-        <div className="container">
+        <div className="container" style={{minHeight: "92vh"}}>
             {
             cartItems.length === 0 ?
             (
@@ -83,15 +83,15 @@ export default function Cart(props) {
                             )}
                         </div>
                         <div className="col-xl-3">
-                            <CartTotalWrapper className="text-center pt-4">
-                                <h3 style={{color: "#056676"}}>
+                            <CartTotalWrapper className="text-center pt-4 pb-2">
+                                <h4 style={{color: "#056676"}}>
                                     Tổng thanh toán 
-                                </h3>
+                                </h4>
                                 <h5 style={{color: "#056676"}} className="mt-3">
                                     {convertToString(cartItems.reduce((a, c) => a + c.price * c.qty, 0))}đ
                                 </h5>
                                 <button className="btn btn-primary w-100" disabled={cartItems.length === 0}>
-                                    {/* <PaypalButton total={cartItems.reduce((a, c) => a + c.price * c.qty, 0)} /> */}
+                                    <PaypalButton total={cartItems.reduce((a, c) => a + c.price * c.qty, 0)} />
                                 </button>
                             </CartTotalWrapper>
                         </div>
