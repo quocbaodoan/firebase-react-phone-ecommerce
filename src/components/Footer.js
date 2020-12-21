@@ -9,9 +9,9 @@ export default function Footer() {
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <h6>About</h6>
-                            <p class="text-justify">Rogphone.com is an initiative  to help the upcoming programmers with the code. Scanfcode focuses on providing the most efficient code or snippets as the code wants to be simple. We will help programmers build up concepts in different programming languages that include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android, SQL and Algorithm.</p>
+                            <p class="text-justify">Rogphone is the phone ecommerce to help the customer buy products easily and efficiently. Rogphone focuses on providing the quality product etc Apple, Samsung, Vsmart and other brands with best price.</p>
 
-                            <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved by Group 9</p>
+                            <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved by 9th Group</p>
                         </div>
                         <div class="col-xs-6 col-md-3">
                             <h6>Technology</h6>
