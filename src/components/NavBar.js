@@ -49,7 +49,7 @@ function NavBar(props) {
                                     <div className="row justify-content-center">
                                         <i className="fas fa-shopping-cart"></i>         
                                     </div>
-                                    <div className="row col-l" style={{fontSize: "0.8rem", fontWeight: "300", marginTop: "1px"}}>
+                                    <div className="row" style={{fontSize: "0.8rem", fontWeight: "300", marginTop: "1px"}}>
                                         Giỏ hàng
                                     </div>
                                 </button>
@@ -184,5 +184,22 @@ const NavWrapper = styled.nav`
 
     @media (max-width:767px){
 
+    padding: 8px 0px;
+        .fas{
+            font-size: 110%;
+        }
+        .navbar-brand{
+            width: 50px;
+            margin-right: 8px;
+        }
+    }
+
+    @media (max-width:480px){
+        .fas{
+            font-size: 100%;
+        }
+        .navbar-brand{
+            margin-right: 0px;
+        }
     }
 `
