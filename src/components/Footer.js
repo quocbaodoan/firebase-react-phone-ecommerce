@@ -9,8 +9,7 @@ export default function Footer() {
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <h6>About</h6>
-                            <p class="text-justify">Rogphone is the phone ecommerce to help the customer buy products easily and efficiently. Rogphone focuses on providing the quality product etc Apple, Samsung, Vsmart and other brands with best price.</p>
-
+                            <p class="text-justify">Rogphone is the phone ecommerce to help the customer buy products easily and efficiently. Rogphone focuses on providing the quality product etc. Apple, Samsung, Vsmart and other brands with best price.</p>
                             <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved by 9th Group</p>
                         </div>
                         <div class="col-xs-6 col-md-3">
