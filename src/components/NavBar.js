@@ -34,7 +34,7 @@ function NavBar(props) {
     return (
         <div>
             <NavWrapper>
-                <div className="navbar navbar-expand-sm navbar-dark px-sm-1 container d-flex">
+                <div className="navbar navbar-expand-sm navbar-dark container d-flex">
                     {/* https://www.iconfinder.com/icons/1243689/call_phone_icon
                     Creative Commons (Attribution 3.0 Unported);
                     https://www.iconfinder.com/Makoto_msk */}
@@ -49,7 +49,7 @@ function NavBar(props) {
                                     <div className="row justify-content-center">
                                         <i className="fas fa-shopping-cart"></i>         
                                     </div>
-                                    <div className="row" style={{fontSize: "0.8rem", fontWeight: "300", marginTop: "1px"}}>
+                                    <div className="row nav-name justify-content-center">
                                         Giỏ hàng
                                     </div>
                                 </button>
@@ -62,7 +62,7 @@ function NavBar(props) {
                                     <div className="row justify-content-center">
                                         <i className="fas fa-store"></i>
                                     </div>
-                                    <div className="row" style={{fontSize: "0.8rem", fontWeight: "300", marginTop: "1px"}}>
+                                    <div className="row nav-name justify-content-center">
                                         <span>Sản phẩm</span>
                                     </div>
                                 </button>
@@ -74,16 +74,15 @@ function NavBar(props) {
                             <Link to="/signin">
                                 <Button style={{border: "none", lineHeight: "1.5",
                                                 transition: "none",
-                                                height: "48px",
                                                 padding: "0.375rem .75rem",
                                                 fontSize: "1rem",
                                                 borderRadius: "0.25rem",
                                                 boxShadow: "none",
-                                                color: "#056676"}}> 
+                                                color: "#056676", marginTop: "1px"}}> 
                                     <div className="row justify-content-center">
                                         <i className="fas fa-user"></i>
                                     </div>
-                                    <div className="row" style={{fontSize: "0.8rem", fontWeight: "300", marginTop: "2px"}}>
+                                    <div className="row nav-name">
                                         <span>Đăng nhập</span>
                                     </div>
                                 </Button>
@@ -93,16 +92,15 @@ function NavBar(props) {
                             <Dropdown overlay={menu} placement="bottomRight">
                                 <Button style={{border: "none", lineHeight: "1.5",
                                                 transition: "none",
-                                                height: "48px",
                                                 padding: "0.375rem .75rem",
                                                 fontSize: "1rem",
                                                 borderRadius: "0.25rem",
                                                 boxShadow: "none",
-                                                color: "#056676"}}> 
+                                                color: "#056676", marginTop: "1px"}}> 
                                     <div className="row justify-content-center">
                                         <i className="fas fa-user"></i>
                                     </div>
-                                    <div className="row" style={{fontSize: "0.8rem", fontWeight: "300", marginTop: "2px"}}>
+                                    <div className="row nav-name">
                                         <span>Thông tin</span>
                                     </div>
                                 </Button>
@@ -182,15 +180,25 @@ const NavWrapper = styled.nav`
         font-size: 150%;
     }
 
-    @media (max-width:767px){
+    .nav-name{
+        font-size: 0.8rem; 
+        font-weight: 300;
+        margin-top: 1px;
+    }
 
-    padding: 8px 0px;
+    @media (max-width:767px){
         .fas{
-            font-size: 110%;
+            font-size: 120%;
         }
         .navbar-brand{
             width: 50px;
             margin-right: 8px;
+        }
+        .nav-name{
+            font-size: 0.7rem; 
+        }
+        .navbar{
+            padding: 3px;
         }
     }
 
@@ -199,7 +207,14 @@ const NavWrapper = styled.nav`
             font-size: 100%;
         }
         .navbar-brand{
+            width: 40px;
             margin-right: 0px;
+        }
+        .nav-name{
+            font-size: 0.6rem; 
+        }
+        .navbar{
+            padding: 1px;
         }
     }
 `

@@ -15,12 +15,13 @@ import 'antd/dist/antd.css';
 import PrivateRoute from "./route/PrivateRoute";
 import AdminRoute from "./route/AdminRoute";
 import Footer from './components/Footer';
+import styled from "styled-components"
 
 function App(props) {
     return (
         <BrowserRouter>
             <NavBar />
-            <div style={{paddingTop: "80px"}}>
+            <MainWrapper>
                 <div>
                     <PrivateRoute path="/profile" component={Profile} />
                     <AdminRoute path="/products" component={ProductManagement} />
@@ -32,7 +33,7 @@ function App(props) {
                     <Route path="/category/:id" component={Home} />
                     <Route path="/" exact={true} component={Home} />
                 </div>
-            </div>
+            </MainWrapper>
             <Footer/>
         </BrowserRouter>
     );
@@ -40,6 +41,14 @@ function App(props) {
 
 export default App;
 
-
+const MainWrapper = styled.div`
+    padding-top: 80px;
+    @media (max-width:767px){
+        padding-top: 60px;
+    }
+    @media (max-width:480px){
+        padding-top: 51px;
+    }
+`
 
 

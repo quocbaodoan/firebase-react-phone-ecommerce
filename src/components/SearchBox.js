@@ -20,7 +20,7 @@ function SearchBox(props) {
         <SearchWrapper>
             <form onSubmit={submitHandler} className="form-inline d-flex flex-row">
                 <input name="searchKeyword" className="form-control" placeholder="Nhập từ khóa cần tìm" onChange={(e) => setSearchKeyword(e.target.value)} />
-                <button type="submit"><i className="fas fa-search ml-1"></i></button>
+                <button type="submit"><i className="fas fa-search"></i></button>
             </form>
         </SearchWrapper>
     )
@@ -87,6 +87,10 @@ const SearchWrapper = styled.div`
         background-color: #5eaaa8;
     }
 
+    .fa-search{
+        margin-left: 2px;
+    }
+
     @media screen and (max-width: 768px) {
         .form-control {
             width: 200px; /* The width is 100%, when the viewport is 800px or smaller */
@@ -96,11 +100,15 @@ const SearchWrapper = styled.div`
         .dropdown-search{
             width: auto;
         }
+        .fa-search{
+            margin-left: 0px;
+        }
     }
     @media screen and (max-width: 480px) {
         .form-control {
             width: 160px; /* The width is 100%, when the viewport is 800px or smaller */
             font-size: 12px;
+            height: 30px !important;
         }
         .dropdown-search{
             width: auto;

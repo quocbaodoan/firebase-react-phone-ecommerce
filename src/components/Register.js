@@ -39,23 +39,20 @@ export default function Register(props) {
     }, [errors]);
 
     return (
-        <div className="container pt-5" style={{minHeight: "92vh"}}>
-            <div className="row pt-4">
+        <div className="container" style={{minHeight: "92vh"}}>
+            <RegisterWrapper className="row">
                 <div className="col-12 mx-auto">
-                    <RegisterWrapper className="row">
-                        <div className="col-6 mx-auto form-content-left">
+                    <div className="row" style={{minHeight: "600px"}}>
+                        <div className="col-lg-6 col-12 mx-auto form-content-left" style={{minHeight: "400px"}}>
                             <img src="images/img-4.svg" alt="spaceship" className="form-img" />
                         </div>
-                        <div className="col-6 mx-auto form-content-right">
+                        <div className="col-lg-6 col-12 mx-auto form-content-right">
                             <form onSubmit={submitHandler}>
                                 <div className="p-4">
                                     <div className="row pb-1">
                                         <div className="col-12 text-center mt-4">
                                             <h2 className="text-uppercase" style={{ color: "#056676", fontWeight: "500" }}>Đăng ký</h2>
                                         </div>
-                                    </div>
-                                    <div>
-                                        {error && <div>{error}</div>}
                                     </div>
                                     <div className="row mt-4">
                                         <div className="col-10 mx-auto">
@@ -81,7 +78,7 @@ export default function Register(props) {
                                     <div className="row mt-4 text-center">
                                         <div className="col col-10 mx-auto">
                                             {error && 
-                                                <div className="error">Email hoặc mật khẩu của bạn không chính xác!</div>
+                                                <div className="error">{error}</div>
                                             }
                                             <button type="submit" className="btn btn-primary w-100" style={{ width: "120px", height: "50px", position: "relative" }}>
                                                 Đăng ký{loading && <div className="loading"><Loading/></div>}
@@ -98,9 +95,9 @@ export default function Register(props) {
                                 </div>
                             </form>
                         </div>
-                    </RegisterWrapper>
+                    </div>
                 </div>
-            </div>
+            </RegisterWrapper>
         </div>
     )
 }
@@ -109,7 +106,8 @@ const RegisterWrapper = styled.div`
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     border-radius: 10px;
-    height: 600px;
+    min-height: 600px;
+    margin-top: 70px;
     
     form{
         border-radius: 20px;
@@ -155,12 +153,14 @@ const RegisterWrapper = styled.div`
         background: #056676;
         border-radius: 10px 0 0 10px;
         position: relative;
+        min-height: 400px;
     }
 
     .form-content-right{
         border-radius: 0 10px 10px 0;
         position: relative;
         background: white;
+        min-height: 600px;
     }
 
     label{
@@ -192,5 +192,18 @@ const RegisterWrapper = styled.div`
         top: 20%;
         left: 90%;
         transform: translate(0%, 0%);
+    }
+
+    @media (max-width: 992px){
+        margin-top: 0px;
+        margin-bottom: 2px;
+
+        .form-content-left {
+            border-radius: 10px 10px 0 0;
+        }
+
+        .form-content-right{
+            border-radius: 0 0 10px 10px;
+        }
     }
 `

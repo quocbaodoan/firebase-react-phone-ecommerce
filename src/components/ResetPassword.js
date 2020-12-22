@@ -38,14 +38,14 @@ export default function ResetPassword(props) {
     console.log(email);
 
     return (
-        <div className="container pt-5" style={{minHeight: "92vh"}}>
-            <div className="row pt-4">
+        <div className="container" style={{minHeight: "92vh"}}>
+            <ResetPasswordWrapper className="row">
                 <div className="col-12 mx-auto">
-                    <ResetPasswordWrapper className="row">
-                        <div className="col-6 mx-auto form-content-left">
+                    <div className="row" style={{minHeight: "600px"}}>
+                        <div className="col-lg-6 col-12 mx-auto form-content-left">
                             <img src="images/img-3.svg" alt="spaceship" className="form-img"/>
                         </div>
-                        <div className="col-6 mx-auto form-content-right">
+                        <div className="col-lg-6 col-12 mx-auto form-content-right">
                             <form onSubmit={submitHandler}>
                                 <div className="py-5 px-4 mt-3">
                                     <div className="row pb-2">
@@ -85,9 +85,9 @@ export default function ResetPassword(props) {
                                 </div>
                             </form>
                         </div>
-                    </ResetPasswordWrapper>
+                    </div>
                 </div>
-            </div>
+            </ResetPasswordWrapper>
         </div>
     )
 }
@@ -96,7 +96,8 @@ const ResetPasswordWrapper = styled.div`
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     border-radius: 10px;
-    height: 600px;
+    min-height: 600px;
+    margin-top: 70px;
 
     form{
         border-radius: 20px;
@@ -141,12 +142,14 @@ const ResetPasswordWrapper = styled.div`
         background: #056676;
         border-radius: 10px 0 0 10px;
         position: relative;
+        min-height: 400px;
     }
 
     .form-content-right{
         border-radius: 0 10px 10px 0;
         position: relative;
         background: white;
+        min-height: 600px;
     }
 
     label{
@@ -178,5 +181,18 @@ const ResetPasswordWrapper = styled.div`
         top: 20%;
         left: 87%;
         transform: translate(0%, 0%);
+    }
+
+    @media (max-width: 992px){
+        margin-top: 0px;
+        margin-bottom: 2px;
+
+        .form-content-left {
+            border-radius: 10px 10px 0 0;
+        }
+
+        .form-content-right{
+            border-radius: 0 0 10px 10px;
+        }
     }
 `
