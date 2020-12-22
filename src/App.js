@@ -16,7 +16,6 @@ import PrivateRoute from "./route/PrivateRoute";
 import AdminRoute from "./route/AdminRoute";
 import Footer from './components/Footer';
 import styled from "styled-components"
-import UserManagement from './components/UserManagement';
 
 function App(props) {
     return (
@@ -26,7 +25,6 @@ function App(props) {
                 <div>
                     <PrivateRoute path="/profile" component={Profile} />
                     <AdminRoute path="/products" component={ProductManagement} />
-                    <AdminRoute path="/users" component={UserManagement} />
                     <Route path="/signin" component={Signin} />
                     <Route path="/register" component={Register} />
                     <Route path="/reset-password" component={ResetPassword} />
